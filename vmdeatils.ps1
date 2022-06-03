@@ -1,3 +1,4 @@
+connect-azAccount
 $reportName = "List_Of_All_Azure_Resources_$($date).csv"
 if(Test-Path $reportName){
     Remove-Item $reportName -Force
