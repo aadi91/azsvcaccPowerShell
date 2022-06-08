@@ -1,4 +1,5 @@
  $regLocation = "Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment"
+ #$first, $path = $env:Path -split ';'
  $first, $path = (Get-ItemProperty -Path $regLocation -Name PATH).path -split ';'
 $myPath = "C:\WINDOWS\system32"
 if ($path -ne $null)
@@ -19,12 +20,13 @@ if ($path -ne $null)
                  Write-host "Removing the path $myPath"
 
 		         $path = ($path.Split(';') | Where-Object { $_ -ne "$myPath" }) -join ';'
-                 Set-ItemProperty -Path $regLocation -Name PATH -Value $path
+                 Set-ItemProperty -Path $regLocation -Name PATH -Value $path1
                  Start-Sleep 5
                ############################################
                Write-Host "Adding $myPath in first position after deleteing  " -ForegroundColor Yellow
-               $path = "C:\Windows\system32;$path"
-               $addendum = ""
+               
+               $path = 'C:\WINDOWS\system32;'+$path
+               $addendum = "$first"
                $path = "$path;$addendum"
                Set-ItemProperty -Path $regLocation -Name PATH -Value $path
               
@@ -33,4 +35,8 @@ if ($path -ne $null)
         }
     }
 else
-{Write-Host "NO Value present in environment variable" }
+{Write-Host "NO Value present in environment variable"
+$path = "$myPath;$path"
+Set-ItemProperty -Path $regLocation -Name PATH -Value $path
+
+ }
