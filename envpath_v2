@@ -20,7 +20,7 @@ if ($path -ne $null)
                  Write-host "Removing the path $myPath"
 
 		         $path = ($path.Split(';') | Where-Object { $_ -ne "$myPath" }) -join ';'
-                 Set-ItemProperty -Path $regLocation -Name PATH -Value $path1
+                 Set-ItemProperty -Path $regLocation -Name PATH -Value $path
                  Start-Sleep 5
                ############################################
                Write-Host "Adding $myPath in first position after deleteing  " -ForegroundColor Yellow
