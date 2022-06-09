@@ -1,7 +1,7 @@
 connect-azAccount
-Get-AzSubscription | ForEach-Object{
-$subscriptionId = $_.Id
-$subscriptionName = $_.Name
+$sub = Get-AzSubscription -SubscriptionId 'ed4b07b6-a9ea-407f-b280-fb9008f2d861' 
+$subscriptionId = $sub.Id
+$subscriptionName = $sub.Name
 Set-AzContext -SubscriptionId $subscriptionId
 Get-AzResourceGroup | ForEach-Object{
 $resourceGroupName = $_.ResourceGroupName
@@ -15,5 +15,4 @@ Restart-AzVM -Name $vm -ResourceGroupName $resourceGroupName
 }
 
 
-}
 }
