@@ -1,0 +1,53 @@
+ $regLocation = "Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment"
+ #$first, $path = $env:Path -split ';'
+ $first, $path = (Get-ItemProperty -Path $regLocation -Name PATH).path -split ';'
+ $a = $path[0,1,2,3] 
+ $myPath = "C:\WINDOWS\system32"
+ if ($a[0] -eq $myPath)
+ {
+ Write-Host "$($a[0])"
+ }
+ elseif ($a[1] -eq $myPath)
+ {
+ $path = ($path.Split(';') | Where-Object { $_ -ne "$($a[0])" }) -join ';'
+ Set-ItemProperty -Path $regLocation -Name PATH -Value $path
+ Write-Host "Adding $myPath in first position after deleteing  " -ForegroundColor Yellow
+               
+               $path = $path
+               $addendum = "$first"
+               $path = "$path;$addendum;$($a[0])"
+               Set-ItemProperty -Path $regLocation -Name PATH -Value $path
+                Write-Output "$($a[1])"
+ }
+ elseif ($a[2] -eq $myPath)
+ {
+ $path1 = ($path.Split(';') | Where-Object { $_ -ne "$($a[0])" }) -join ';'
+ $path2 = ($path1.Split(';') | Where-Object { $_ -ne "$($a[1])" }) -join ';'
+ Set-ItemProperty -Path $regLocation -Name PATH -Value $path2
+ Write-Host "Adding $myPath in first position after deleteing  " -ForegroundColor Yellow
+               
+               $path = "$path2;$($a[1])"
+               $addendum = "$first"
+               $path = "$path;$addendum;$($a[0])"
+               Set-ItemProperty -Path $regLocation -Name PATH -Value $path
+                Write-Output "$($a[2])"
+ }
+ else{
+
+ Write-host "Removing the path $myPath"
+
+		         $path = ($path.Split(';') | Where-Object { $_ -ne "$myPath" }) -join ';'
+                 Set-ItemProperty -Path $regLocation -Name PATH -Value $path
+                 Start-Sleep 5
+               ############################################
+               Write-Host "Adding $myPath in first position after deleteing  " -ForegroundColor Yellow
+               
+               $path = 'C:\WINDOWS\system32;'+$path
+               $addendum = "$first"
+               $path = "$path;$addendum"
+               Set-ItemProperty -Path $regLocation -Name PATH -Value $path
+
+
+ }
+
+
