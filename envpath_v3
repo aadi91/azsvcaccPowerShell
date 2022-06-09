@@ -1,7 +1,7 @@
  $regLocation = "Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment"
  #$first, $path = $env:Path -split ';'
  $first, $path = (Get-ItemProperty -Path $regLocation -Name PATH).path -split ';'
- $a = $path[0,1,2,3] 
+ $a = $path[0,1,2,3,4] 
  $myPath = "C:\WINDOWS\system32"
  if ($a[0] -eq $myPath)
  {
@@ -26,7 +26,21 @@
  Set-ItemProperty -Path $regLocation -Name PATH -Value $path2
  Write-Host "Adding $myPath in first position after deleteing  " -ForegroundColor Yellow
                
-               $path = "$path2;$($a[1])"
+               $path = "$path2;$($a[0])"
+               $addendum = "$first"
+               $path = "$path;$addendum;$($a[1]);$($a[2])"
+               Set-ItemProperty -Path $regLocation -Name PATH -Value $path
+                Write-Output "$($a[2])"
+ }
+ elseif ($a[3] -eq $myPath)
+ {
+ $path1 = ($path.Split(';') | Where-Object { $_ -ne "$($a[0])" }) -join ';'
+ $path2 = ($path1.Split(';') | Where-Object { $_ -ne "$($a[1])" }) -join ';'
+ $path3 = ($path2.Split(';') | Where-Object { $_ -ne "$($a[2])" }) -join ';'
+ Set-ItemProperty -Path $regLocation -Name PATH -Value $path3
+ Write-Host "Adding $myPath in first position after deleteing  " -ForegroundColor Yellow
+               
+               $path = "$path3;$($a[1])"
                $addendum = "$first"
                $path = "$path;$addendum;$($a[0])"
                Set-ItemProperty -Path $regLocation -Name PATH -Value $path
