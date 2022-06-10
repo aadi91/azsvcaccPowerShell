@@ -9,11 +9,11 @@ $resourceGroupName = $res.ResourceGroupName
 #Restart Azure VMs
 $vms = Get-AzVM -ResourceGroupName $resourceGroupName 
 foreach ($vm in $vms){
-
+Write-host ""$vm.name" is restart rebooting" -ForegroundColor Green
 Start-Sleep 900
-Restart-AzVM -Name $vm -ResourceGroupName $resourceGroupName
+Restart-AzVM -Name "$vm.name" -ResourceGroupName $resourceGroupName
 
 }
 
-
+Write-host "script executed successfully" -ForegroundColor Cyan
 
