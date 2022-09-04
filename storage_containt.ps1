@@ -25,7 +25,8 @@ if(Test-Path $oFile){
    #$blockBlobs = Get-AzStorageBlob -Container $container.Name -Context $Context | Where-Object {$_.name -like "*.zip"}
 
    Get-AzStorageAccount -ResourceGroupName $resourceGroupName -AccountName $storageaccname | ForEach-Object{
-   $Context = $_.Context
+   #$Context = $_.Context
+   $Contextz = $_.Context
    
    Get-AzStorageContainer -Context $Context | ForEach-Object{
    $container = $_.Name
