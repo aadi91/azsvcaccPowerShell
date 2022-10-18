@@ -4,7 +4,7 @@
 connect-azAccount
 $subscription = "ae0e4f48-d135-461b-9843-132dcfvdg"
 $RG = "demo-rg"
-$VMNAMES = @("VM1","vm1")
+$VMNAMES = @("VM1","vm2")
 Select-AzSubscription -Subscription "$subscription"
 
 foreach($vmname in $VMNAMES){
