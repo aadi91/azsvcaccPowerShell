@@ -2,7 +2,7 @@
 #https://www.jorgebernhardt.com/create-multiple-identical-vms-at-once-with-azure-powershell/
 
 connect-azAccount
-$subscription = "ae0e4f48-d135-461b-9843-7fedb6491d49"
+$subscription = "ae0e4f48-d135-461b-9843-132dcfvdg"
 $RG = "demo-rg"
 $VMNAMES = @("VM1","vm1")
 Select-AzSubscription -Subscription "$subscription"
