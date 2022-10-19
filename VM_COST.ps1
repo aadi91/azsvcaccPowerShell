@@ -1,8 +1,8 @@
 $StartDay="2022-10-10"
  $EndDay="2022-10-19"
-$subscription = "ae0e4f48-d135-461b-9843-7fedb6491d49"
+$subscription = "adsxdsx4f48-d135-461b-9843-7fedb6491d49"
 connect-azAccount
-$subscription = "ae0e4f48-d135-461b-9843-7fedb6491d49"
+$subscription = "ae0e4f48-d135-461b-9843-7fedb6491d49fhgschgshgfhdgsf"
 $file="C:\temp\GeneratedCost-short.csv"
 $costTotal=0
 $VMs = @()
